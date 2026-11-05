@@ -81,7 +81,7 @@ a { color: var(--accent); text-decoration: none; }
   display: grid; place-items: center;
 }
 .icon-btn:hover { background: var(--card); color: var(--text); }
-.swap { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); }
+.swap { position: absolute; right: 8px; top: 46.5px; transform: translateY(-50%); } /* centred between the two fields, even when suggestions expand the card */
 .locate { color: var(--accent); }
 .clear { padding: 4px; color: var(--muted); }
 .clear:hover { background: transparent; }
@@ -200,3 +200,52 @@ a { color: var(--accent); text-decoration: none; }
   #panel.has-route .brand { display: none; }
   .suggestions { position: static; margin-top: 6px; box-shadow: none; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; max-height: none; padding: 0; }
 }
+
+/* ---------- Search states ---------- */
+.suggestions li.info { cursor: default; color: var(--muted); font-size: 14px; gap: 8px; padding: 10px 12px; }
+.suggestions li.info:hover { background: transparent; }
+.suggestions.loading::before {
+  content: ''; position: sticky; top: -6px; display: block; height: 2px; margin: -6px -6px 4px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent) 0 0 / 40% 100% no-repeat;
+  animation: sweep 1s linear infinite;
+}
+@keyframes sweep { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+.spinner {
+  width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--line); border-top-color: var(--accent); animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.field.resolving::after {
+  content: ''; width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--line); border-top-color: var(--accent); animation: spin .7s linear infinite;
+}
+.field.invalid { border-radius: 10px; margin: 0 -8px; padding: 0 8px; background: rgba(255, 59, 48, 0.1); box-shadow: inset 0 0 0 1.5px rgba(255, 59, 48, 0.6); }
+.field.invalid input { color: #ff3b30; }
+@media (prefers-color-scheme: dark) { .field.invalid input { color: #ff6961; } .status.error { color: #ff6961; } }
+@media (max-width: 720px) { .suggestions.loading::before { margin: 0 0 4px; top: 0; } }
+
+/* Field a map click will fill / field being edited */
+.field { transition: box-shadow .15s, background .15s; }
+.field.target, .field:focus-within { border-radius: 10px; margin: 0 -8px; padding: 0 8px; }
+.field.target { box-shadow: inset 0 0 0 1.5px var(--accent); background: rgba(10, 132, 255, 0.08); }
+.field:focus-within:not(.invalid) { background: rgba(10, 132, 255, 0.06); }
+.field.target input::placeholder { color: var(--accent); }
+
+/* "Start here / Go here" menu */
+.pin-menu .maplibregl-popup-content { padding: 6px; background: var(--solid); color: var(--text); }
+.pin-menu .maplibregl-popup-tip { border-top-color: var(--solid) !important; border-bottom-color: var(--solid) !important; }
+.pin-menu-btns { display: flex; gap: 4px; }
+.pin-menu-btns button {
+  display: flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 8px 12px;
+  border-radius: 9px; font-size: 14px; font-weight: 600; white-space: nowrap;
+}
+.pin-menu-btns button:hover { background: var(--card); }
+.pin-menu-btns .dot { width: 10px; height: 10px; }
+
+/* Suggestion pins by kind */
+.suggestions .pin.address { background: #8e8e93; }
+.suggestions .pin.street { background: #636366; }
+.suggestions .pin.transit { background: #f26c22; }
+.suggestions .pin.place { background: #5e5ce6; }
+.suggestions li.info.error { color: #ff3b30; }
+@media (prefers-color-scheme: dark) { .suggestions li.info.error { color: #ff6961; } }

@@ -1,6 +1,6 @@
 {
   "shardMB": 50,
-  "createdAt": "2026-11-05T11:08:59.444Z",
+  "createdAt": "2026-11-05T12:24:50.081Z",
   "files": [
     {
       "path": "raw/sydney.osm.pbf",
@@ -257,6 +257,14 @@
       "sha256": "e12f0e84c124f715de3f13f26631ffd3ec47f1e64396295a158485587e4f1b5d",
       "parts": [
         "graph/nodeMajorName.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/places.json.gz",
+      "size": 3234743,
+      "sha256": "39f55571522ac574df3d9172836d73546738d75988e306898001418413cf80f6",
+      "parts": [
+        "graph/places.json.gz.part000"
       ]
     }
   ]

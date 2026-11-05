@@ -6,6 +6,7 @@ import { BBOX, GRAPH_DIR, PUBLIC_DIR, ROOT, inBbox } from './config.ts';
 import { loadGraph } from './graph.ts';
 import { planRoutes } from './router.ts';
 import { CLASSES, MODES } from './model.ts';
+import { PlaceIndex, type SearchResult } from './search.ts';
 
 const PORT = Number(process.env.PORT ?? 5173);
 const UA = 'sydney-cycleways/0.1 (local route planner)';
@@ -14,6 +15,18 @@ console.log('Loading graph…');
 const t0 = Date.now();
 const graph = loadGraph();
 console.log(`Graph loaded in ${((Date.now() - t0) / 1000).toFixed(1)}s: ${graph.N.toLocaleString()} nodes, ${graph.E.toLocaleString()} edges`);
+
+// Local place index (scripts/places.ts). Without it, search falls back to Photon only.
+const PLACES_FILE = path.join(GRAPH_DIR, 'places.json.gz');
+let places: PlaceIndex | null = null;
+if (fs.existsSync(PLACES_FILE)) {
+  const t1 = Date.now();
+  places = new PlaceIndex(PLACES_FILE);
+  const { entries, addresses } = places.size;
+  console.log(`Place index loaded in ${Date.now() - t1}ms: ${entries.toLocaleString()} places/streets, ${addresses.toLocaleString()} addresses`);
+} else {
+  console.warn('No data/graph/places.json.gz – run `npm run places`. Search will use Photon only.');
+}
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -95,7 +108,7 @@ async function photon(url: string): Promise<any[]> {
   return results;
 }
 
-async function searchPlaces(q: string, lat: string, lon: string) {
+async function searchPhoton(q: string, lat: string, lon: string) {
   const base = { lang: 'en', bbox: BBOX.join(','), lat, lon };
   const general = photon(`https://photon.komoot.io/api/?${new URLSearchParams({ ...base, q, limit: '12' })}`);
   const stationQ = q.replace(/\b(railway|train|metro)?\s*station\b/i, '').trim();
@@ -112,6 +125,25 @@ async function searchPlaces(q: string, lat: string, lon: string) {
     // Drop near-duplicates (same name within ~150 m).
     .filter((r, i, arr) => !arr.slice(0, i).some((o) => o.title === r.title && Math.abs(o.lat - r.lat) < 0.0015 && Math.abs(o.lon - r.lon) < 0.0015))
     .slice(0, 6);
+}
+
+// Local index first (instant); with `remote`, up to 3 Photon results that the local
+// index doesn't already have are appended. A slow or failing Photon never loses the local results.
+async function searchPlaces(q: string, lat: number, lon: number, limit: number, remote: boolean): Promise<SearchResult[]> {
+  const t = performance.now();
+  const local = places ? places.search(q, lat, lon, limit) : [];
+  if (!remote) {
+    console.log(`search "${q}": ${local.length} local in ${(performance.now() - t).toFixed(1)}ms`);
+    return local;
+  }
+  const timeout = new Promise<SearchResult[]>((resolve) => setTimeout(() => resolve([]), 4000));
+  const far = await Promise.race([searchPhoton(q, String(lat), String(lon)).catch(() => [] as SearchResult[]), timeout]);
+  const near = (a: SearchResult, b: SearchResult) =>
+    Math.abs(a.lat - b.lat) < 0.003 && Math.abs(a.lon - b.lon) < 0.003 && a.title.toLowerCase() === b.title.toLowerCase();
+  // Up to 3 slots go to Photon-only results; local ones fill the rest.
+  const extra = far.filter((r) => !local.some((m) => near(m, r))).slice(0, places ? 3 : limit);
+  console.log(`search "${q}" +remote: ${local.length} local, ${extra.length} extra from Photon in ${(performance.now() - t).toFixed(0)}ms`);
+  return [...local.slice(0, limit - extra.length), ...extra];
 }
 
 const server = http.createServer(async (req, res) => {
@@ -131,9 +163,11 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/search') {
       const q = url.searchParams.get('q')?.trim();
       if (!q) return send(res, 200, []);
-      const lat = url.searchParams.get('lat') ?? '-33.87';
-      const lon = url.searchParams.get('lon') ?? '151.21';
-      return send(res, 200, await searchPlaces(q, lat, lon));
+      const lat = parseFloat(url.searchParams.get('lat') ?? '') || -33.87;
+      const lon = parseFloat(url.searchParams.get('lon') ?? '') || 151.21;
+      const limit = Math.min(20, Math.max(1, parseInt(url.searchParams.get('limit') ?? '', 10) || 8));
+      const remote = url.searchParams.get('remote') === '1' || !places;
+      return send(res, 200, await searchPlaces(q, lat, lon, limit, remote));
     }
     if (url.pathname === '/api/reverse') {
       const p = new URLSearchParams({ lat: url.searchParams.get('lat') ?? '', lon: url.searchParams.get('lon') ?? '', limit: '1', lang: 'en' });

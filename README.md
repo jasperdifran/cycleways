@@ -32,7 +32,7 @@ npm run data:pack     # re-shard data/ → shards/, then commit
 | Bike network | Transport for NSW [Infrastructure Cycleway Data](https://opendata.transport.nsw.gov.au/dataset/infrastructure-cycleway-data) (shapefile, updated monthly) | Each OSM segment is matched to the official facility type: Separated Path, Shared Use Path, Quietway, Bicycle Lane, Parking Lane, motorway shoulder, "Vehicle (motor) Only", etc. |
 | Crashes | Transport for NSW [NSW Crash Data](https://opendata.transport.nsw.gov.au/dataset/nsw-crash-data) (latest 5 years) | Every crash involving a pedal cycle is attached to the nearest intersection or segment and weighted by severity |
 | Base map | [OpenFreeMap](https://openfreemap.org) vector tiles | Display only |
-| Search | [Photon](https://photon.komoot.io) (OSM geocoder) | Place search and reverse geocoding |
+| Search | OpenStreetMap (local index of places, stations, POIs, streets and ~260k addresses, `data/graph/places.json.gz`), plus [Photon](https://photon.komoot.io) (OSM geocoder) | Instant place search; Photon supplements it on request (`remote=1`) and does reverse geocoding |
 
 The TfNSW data fills a gap in OSM. In NSW, adults may not ride on ordinary footpaths, so footpaths that are officially *shared paths* matter a lot. Those paths often lack `bicycle=yes` tags in OSM. Without the TfNSW data the router would make you walk them.
 
@@ -69,11 +69,13 @@ The **safety score** (0–100) summarises the average danger multiplier, crash e
 
 ```
 scripts/download.ts   fetch OSM + TfNSW data (uses the TfNSW CKAN API to find the latest files)
-scripts/build.ts      build data/graph/*.bin + overlay GeoJSON
+scripts/build.ts      build data/graph/*.bin + overlay GeoJSON (then runs places.ts)
+scripts/places.ts     build the local search index data/graph/places.json.gz (`npm run places`, ~10 s)
 scripts/shards.ts     pack/unpack data/ ↔ shards/ (Git LFS, 50 MB pieces + manifest.json with SHA-256)
 scripts/audit.ts      route ~20 test trips across Sydney and print stats (V=1 for directions)
 src/model.ts          the safety model (edit weights here, then `npm run build`)
 src/router.ts         snapping, A*, turn-by-turn directions, route stats
+src/search.ts         instant local place/address search over the places index
 src/server.ts         HTTP API + static files
 public/               the web app (MapLibre GL)
 ```
@@ -86,3 +88,7 @@ API: `GET /api/route?from=lat,lon&to=lat,lon` returns up to three routes, each w
 - Crash data only covers *reported* crashes, and busier bike routes naturally see more of them.
 - Footpath legality follows NSW adult rules. Riders under 16, or adults supervising them, may ride on footpaths.
 - Matching TfNSW data to OSM is geometric (within 15 m and a similar bearing), so a handful of segments may be misclassified.
+
+## Licence
+
+Code: [MIT](LICENSE). Data in `shards/`: OpenStreetMap data and anything derived from it is © OpenStreetMap contributors under the [ODbL](https://www.openstreetmap.org/copyright); Transport for NSW cycleway and crash data is © State of NSW under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [LICENSE](LICENSE).
