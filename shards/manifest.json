@@ -1,6 +1,6 @@
 {
-  "shardMB": 50,
-  "createdAt": "2026-11-05T12:24:50.081Z",
+  "shardMB": 25,
+  "createdAt": "2026-11-05T12:38:10.100Z",
   "files": [
     {
       "path": "raw/sydney.osm.pbf",
@@ -8,7 +8,8 @@
       "sha256": "72dd218b495f957f09e1ffcd58162e17d9e9cf386d0cd359b778d9730e901f3c",
       "parts": [
         "raw/sydney.osm.pbf.part000",
-        "raw/sydney.osm.pbf.part001"
+        "raw/sydney.osm.pbf.part001",
+        "raw/sydney.osm.pbf.part002"
       ]
     },
     {

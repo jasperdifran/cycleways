@@ -8,10 +8,9 @@ Coverage is Greater Sydney: Penrith to Palm Beach, Windsor to Helensburgh.
 
 Requires Node ≥ 23.6 (TypeScript runs natively). Rebuilding data from scratch also needs [osmium](https://osmcode.org/osmium-tool/) (`brew install osmium-tool`).
 
-The data, including a pre-built routing graph, is checked in under `shards/` with [Git LFS](https://git-lfs.com), split into ≤ 50 MB pieces:
+The data, including a pre-built routing graph, is checked in under `shards/` as plain git files, split into ≤ 25 MB pieces (so no Git LFS needed):
 
 ```bash
-git lfs install && git lfs pull
 npm install
 npm run data:unpack   # reassemble shards/ → data/ (checksums verified)
 npm start             # http://localhost:5173
@@ -71,7 +70,7 @@ The **safety score** (0–100) summarises the average danger multiplier, crash e
 scripts/download.ts   fetch OSM + TfNSW data (uses the TfNSW CKAN API to find the latest files)
 scripts/build.ts      build data/graph/*.bin + overlay GeoJSON (then runs places.ts)
 scripts/places.ts     build the local search index data/graph/places.json.gz (`npm run places`, ~10 s)
-scripts/shards.ts     pack/unpack data/ ↔ shards/ (Git LFS, 50 MB pieces + manifest.json with SHA-256)
+scripts/shards.ts     pack/unpack data/ ↔ shards/ (25 MB pieces + manifest.json with SHA-256)
 scripts/audit.ts      route ~20 test trips across Sydney and print stats (V=1 for directions)
 src/model.ts          the safety model (edit weights here, then `npm run build`)
 src/router.ts         snapping, A*, turn-by-turn directions, route stats

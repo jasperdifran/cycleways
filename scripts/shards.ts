@@ -1,4 +1,4 @@
-// Packs data/ into fixed-size shards under shards/ (tracked with Git LFS), and
+// Packs data/ into fixed-size shards under shards/ (plain git files), and
 // unpacks them back. Each file is split into ≤ SHARD_MB pieces; shards/manifest.json
 // records sizes and SHA-256 hashes so unpacking can verify the result.
 //
@@ -11,7 +11,7 @@ import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { ROOT, RAW } from '../src/config.ts';
 
-const SHARD_MB = 50;
+const SHARD_MB = 25; // well under GitHub's 50 MB warning / 100 MB limit per file
 const SHARD_BYTES = SHARD_MB * 1024 * 1024;
 const DATA_DIR = path.join(ROOT, 'data');
 const SHARD_DIR = path.join(ROOT, 'shards');
@@ -61,7 +61,7 @@ function unpack() {
     const bufs = f.parts.map((p) => fs.readFileSync(path.join(SHARD_DIR, p)));
     const buf = Buffer.concat(bufs);
     if (bufs[0].subarray(0, 40).toString('utf8').startsWith('version https://git-lfs')) {
-      throw new Error(`${f.path} is an LFS pointer – run \`git lfs pull\` first.`);
+      throw new Error(`${f.path} is a Git LFS pointer (from an old checkout) – re-clone or run \`git pull\`.`);
     }
     if (buf.length !== f.size || sha256(buf) !== f.sha256) throw new Error(`Checksum mismatch for ${f.path}`);
     const dest = path.join(DATA_DIR, f.path);
