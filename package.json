@@ -1,0 +1,25 @@
+{
+  "name": "sydney-cycleways",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Safest-route bike navigation for Greater Sydney, using OpenStreetMap plus Transport for NSW cycleway and crash data.",
+  "type": "module",
+  "engines": {
+    "node": ">=23.6"
+  },
+  "scripts": {
+    "download": "node scripts/download.ts",
+    "build": "node --max-old-space-size=8192 scripts/build.ts",
+    "start": "node src/server.ts",
+    "setup": "npm run download && npm run build",
+    "data:pack": "node scripts/shards.ts pack",
+    "data:unpack": "node scripts/shards.ts unpack"
+  },
+  "dependencies": {
+    "maplibre-gl": "^6.16.0",
+    "osm-pbf-parser-node": "^1.1.4",
+    "proj4": "^2.22.0",
+    "shapefile": "^0.6.6",
+    "xlsx": "^0.18.5"
+  }
+}

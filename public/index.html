@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cycleways · Safe bike routes for Sydney</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚲</text></svg>" />
+  <link rel="stylesheet" href="/vendor/maplibre-gl.css" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <aside id="panel">
+    <div class="grabber"></div>
+    <header class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>
+      </div>
+      <div>
+        <h1>Cycleways</h1>
+        <p>Safest bike routes across Sydney</p>
+      </div>
+    </header>
+
+    <section class="search card">
+      <div class="field" data-which="from">
+        <span class="dot start"></span>
+        <input id="from" type="text" placeholder="Choose start, or click the map" autocomplete="off" spellcheck="false" />
+        <button class="icon-btn clear" data-which="from" title="Clear" hidden><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".35"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn locate" id="locate" title="Use my location">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M21 3 3 10.5l7.5 2.9L13.4 21z"/></svg>
+        </button>
+      </div>
+      <div class="divider"><span class="dots"></span></div>
+      <div class="field" data-which="to">
+        <span class="dot end"></span>
+        <input id="to" type="text" placeholder="Choose destination" autocomplete="off" spellcheck="false" />
+        <button class="icon-btn clear" data-which="to" title="Clear" hidden><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".35"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="icon-btn swap" id="swap" title="Swap start and destination">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg>
+      </button>
+      <ul id="suggestions" class="suggestions" hidden></ul>
+    </section>
+
+    <div id="status" class="status" hidden></div>
+
+    <section id="empty" class="empty">
+      <p><strong>Find the safest way to ride.</strong></p>
+      <p>Routes favour separated cycleways, shared paths and quiet streets. They avoid busy roads, unsignalised crossings of main roads, and places where bike crashes have been reported.</p>
+      <div class="legend" id="legend"></div>
+    </section>
+
+    <section id="routes" class="routes" hidden></section>
+    <section id="details" class="details" hidden></section>
+
+    <footer class="credits">
+      Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors ·
+      Cycleway &amp; crash data © <a href="https://opendata.transport.nsw.gov.au/" target="_blank">Transport for NSW</a> (CC BY 4.0) ·
+      Tiles <a href="https://openfreemap.org" target="_blank">OpenFreeMap</a>
+    </footer>
+  </aside>
+
+  <div class="map-controls">
+    <button id="toggle-network" class="pill on" title="Show the bike network">
+      <span class="swatch net"></span>Bike network
+    </button>
+    <button id="toggle-crashes" class="pill" title="Show reported bike crashes 2021–2025">
+      <span class="swatch crash"></span>Bike crashes
+    </button>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
