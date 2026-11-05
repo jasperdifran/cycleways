@@ -1,0 +1,263 @@
+{
+  "shardMB": 50,
+  "createdAt": "2026-11-05T11:08:59.444Z",
+  "files": [
+    {
+      "path": "raw/sydney.osm.pbf",
+      "size": 69277482,
+      "sha256": "72dd218b495f957f09e1ffcd58162e17d9e9cf386d0cd359b778d9730e901f3c",
+      "parts": [
+        "raw/sydney.osm.pbf.part000",
+        "raw/sydney.osm.pbf.part001"
+      ]
+    },
+    {
+      "path": "raw/tfnsw_bicycle_network.zip",
+      "size": 12872245,
+      "sha256": "ff44fc1194798dc455c09aa2ad65686332e1811d0d1c167e23819a6c2eb34072",
+      "parts": [
+        "raw/tfnsw_bicycle_network.zip.part000"
+      ]
+    },
+    {
+      "path": "raw/nsw_crash_crash.xlsx",
+      "size": 23086557,
+      "sha256": "7bbceb2f94cd9f36745ab1fc2bcf7c128895eac080bb25654627e8e8c885f3ca",
+      "parts": [
+        "raw/nsw_crash_crash.xlsx.part000"
+      ]
+    },
+    {
+      "path": "raw/nsw_crash_traffic_unit.xlsx",
+      "size": 6590424,
+      "sha256": "73c496503a3628a1cbe6280f015175cb00c2eb1be97f570e4c1cac01b09c8f70",
+      "parts": [
+        "raw/nsw_crash_traffic_unit.xlsx.part000"
+      ]
+    },
+    {
+      "path": "graph/crashes.geojson",
+      "size": 483636,
+      "sha256": "8e92a4b811981c5d0e2ee8cfcae6460cbe391274e55771bed52e58e951ea03f8",
+      "parts": [
+        "graph/crashes.geojson.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeCls.bin",
+      "size": 782559,
+      "sha256": "0ce5ca6f7d4b29697162798940ab0d227df6be599391344bd2dbe2e91dcf160b",
+      "parts": [
+        "graph/edgeCls.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeCrash.bin",
+      "size": 3130236,
+      "sha256": "befa2443111274059337b86e8d81069b5d229199e2c0545a80c063721a18b5eb",
+      "parts": [
+        "graph/edgeCrash.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeCrashN.bin",
+      "size": 1565118,
+      "sha256": "ffb00bcdd3e4057afb111af4f137e77fc9adf7b20ec914ce3a87bfd3a1f87805",
+      "parts": [
+        "graph/edgeCrashN.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeDir.bin",
+      "size": 782559,
+      "sha256": "bf6a77ea464468ac313fa6375c6459929ce4c52e59c1a111174820790fd9c70b",
+      "parts": [
+        "graph/edgeDir.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeFac.bin",
+      "size": 782559,
+      "sha256": "0d0a749ab0744f68c3fa02ebfb0245624b466b906e1dd316eec2294e9f63b385",
+      "parts": [
+        "graph/edgeFac.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeFrom.bin",
+      "size": 3130236,
+      "sha256": "4a854d4c819451b63ddf5ebd024f11dc8fa6438cf44899ea80950f8e9e6f17f7",
+      "parts": [
+        "graph/edgeFrom.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeGeomStart.bin",
+      "size": 3130240,
+      "sha256": "051524afa0d7f895d591113479ce9ec11379153a3b5003bbb014569e1b8d7127",
+      "parts": [
+        "graph/edgeGeomStart.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeLen.bin",
+      "size": 3130236,
+      "sha256": "2adf92c04a51e05778b46b27412877e5384bb9172fa0b61a7f179f90fe143e94",
+      "parts": [
+        "graph/edgeLen.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeLevel.bin",
+      "size": 782559,
+      "sha256": "e3e3b1a67ca98e761b0d57f90b05bf6e7bc9f80ef7ac7dc68bab9d49bf1e7a21",
+      "parts": [
+        "graph/edgeLevel.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeMult.bin",
+      "size": 3130236,
+      "sha256": "d3f2080a627be2c4d8cacfe1419ad51d24f6d6b19f9ea1973aa93f20970195e0",
+      "parts": [
+        "graph/edgeMult.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeName.bin",
+      "size": 3130236,
+      "sha256": "c8a3561e399611bac4b522948d9cef865bcf3ec2cdb2b9b27bc3d562780da39c",
+      "parts": [
+        "graph/edgeName.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeTime.bin",
+      "size": 3130236,
+      "sha256": "84fa1f55b6080f8c568452a329dfe73ee6fe3f80fd90d68bd6fd0fd7518f4058",
+      "parts": [
+        "graph/edgeTime.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/edgeTo.bin",
+      "size": 3130236,
+      "sha256": "37bf73944d91cf26e80e6c8ba7d61d50a2d7f6d6f38fd14a9671267d45a709b6",
+      "parts": [
+        "graph/edgeTo.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/geomLat.bin",
+      "size": 11592016,
+      "sha256": "102aa0dbf27a6927fc127d66f91e7cc4f2fe35aec17dc580ad81416618f9ebc6",
+      "parts": [
+        "graph/geomLat.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/geomLon.bin",
+      "size": 11592016,
+      "sha256": "5c86186d0534876418424e15566ea0a47b73e5e30b8ac2e4c78dde694bbf5cc4",
+      "parts": [
+        "graph/geomLon.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/meta.json",
+      "size": 592704,
+      "sha256": "67389504f75554817e92f6bc3edb3a5ee2952cef3dc5f70230ac2a00203cc379",
+      "parts": [
+        "graph/meta.json.part000"
+      ]
+    },
+    {
+      "path": "graph/network.geojson",
+      "size": 9418516,
+      "sha256": "26f22e68ba349d6b72936e565fe4d740777f4f4c92c2769765dd3046c86096d0",
+      "parts": [
+        "graph/network.geojson.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeArmA.bin",
+      "size": 2320816,
+      "sha256": "1e85ee2eede5d89fa928098f01168e3f11cbe1f9d9a215fc1b8aa089eb86baac",
+      "parts": [
+        "graph/nodeArmA.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeArmB.bin",
+      "size": 2320816,
+      "sha256": "653c7030bfb96c282f6ad81962a4743e101ac456e1da15cde1ef0868917a3486",
+      "parts": [
+        "graph/nodeArmB.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeCrash.bin",
+      "size": 2320816,
+      "sha256": "120c4918f671b0696f663872c92446ac8cb267a849720b739ce2cfe083af09f2",
+      "parts": [
+        "graph/nodeCrash.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeCrashN.bin",
+      "size": 1160408,
+      "sha256": "1ea7d9daa9555b63f1e76248f4ee689a0ed5356ede9e1677ea14e566d245f66d",
+      "parts": [
+        "graph/nodeCrashN.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeFlags.bin",
+      "size": 580204,
+      "sha256": "e62f239f86aee51b711f6398148e495cde930048a276fa6b59f0c03acf959570",
+      "parts": [
+        "graph/nodeFlags.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeLat.bin",
+      "size": 2320816,
+      "sha256": "74ca8d3b7ebe671ae4d2b2cafba32c29931f69485e2123d73cda77bd51048059",
+      "parts": [
+        "graph/nodeLat.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeLon.bin",
+      "size": 2320816,
+      "sha256": "5815ea38d8068b23d00a54826b162bf3a3335ff91ed675711e169dcc1c18f0d1",
+      "parts": [
+        "graph/nodeLon.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeMajor.bin",
+      "size": 580204,
+      "sha256": "a38571cde3fdccc35e5ea531277f8fb88f8ed91c1f7315c734d8adabd95cc6ff",
+      "parts": [
+        "graph/nodeMajor.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeMajorArms.bin",
+      "size": 580204,
+      "sha256": "78d46e57481c919a870b9ab00c21f08590f9748c843c88c8cc88ae8b41c5d023",
+      "parts": [
+        "graph/nodeMajorArms.bin.part000"
+      ]
+    },
+    {
+      "path": "graph/nodeMajorName.bin",
+      "size": 2320816,
+      "sha256": "e12f0e84c124f715de3f13f26631ffd3ec47f1e64396295a158485587e4f1b5d",
+      "parts": [
+        "graph/nodeMajorName.bin.part000"
+      ]
+    }
+  ]
+}
