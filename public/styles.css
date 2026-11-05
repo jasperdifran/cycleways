@@ -193,7 +193,8 @@ a { color: var(--accent); text-decoration: none; }
     border-radius: 20px 20px 0 0; padding-bottom: calc(16px + env(safe-area-inset-bottom));
   }
   .grabber { display: block; width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: -6px auto 0; flex-shrink: 0; }
-  .brand p, .credits { display: none; }
+  .brand p { display: none; }
+  .credits { font-size: 10px; margin-top: 12px; }
   .map-controls { right: 12px; left: 12px; justify-content: flex-start; top: calc(12px + env(safe-area-inset-top)); }
   .maplibregl-ctrl-top-right { top: calc(52px + env(safe-area-inset-top)); }
   #panel.searching { max-height: 88vh; }
